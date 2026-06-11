@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="description" content="一键操作的霓虹风太空街机游戏：脱离轨道、捕获行星、躲避地雷，不断攀升。" />
+    <meta name="theme-color" content="#05060f" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="轨道跃迁" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" type="image/png" sizes="64x64" href="icons/favicon-64.png" />
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+    <title>轨道跃迁 · Orbit Leap</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background: #05060f;
+        overflow: hidden;
+        overscroll-behavior: none;
+        touch-action: none;
+        -webkit-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+      }
+      /* 宽屏下的页面级星空背景，让 FIT 留边不显突兀 */
+      body {
+        background:
+          radial-gradient(1200px 800px at 20% 12%, rgba(155, 93, 255, 0.1), transparent 60%),
+          radial-gradient(1000px 700px at 82% 78%, rgba(93, 143, 255, 0.09), transparent 60%),
+          #05060f;
+      }
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background-image:
+          radial-gradient(1.4px 1.4px at 12% 22%, rgba(255, 255, 255, 0.7), transparent 100%),
+          radial-gradient(1px 1px at 31% 67%, rgba(255, 255, 255, 0.5), transparent 100%),
+          radial-gradient(1.8px 1.8px at 47% 14%, rgba(205, 225, 255, 0.8), transparent 100%),
+          radial-gradient(1px 1px at 58% 81%, rgba(255, 255, 255, 0.45), transparent 100%),
+          radial-gradient(1.3px 1.3px at 71% 36%, rgba(255, 255, 255, 0.65), transparent 100%),
+          radial-gradient(1px 1px at 84% 59%, rgba(225, 235, 255, 0.5), transparent 100%),
+          radial-gradient(1.6px 1.6px at 92% 18%, rgba(255, 255, 255, 0.7), transparent 100%),
+          radial-gradient(1px 1px at 6% 86%, rgba(255, 255, 255, 0.5), transparent 100%),
+          radial-gradient(1.2px 1.2px at 24% 44%, rgba(255, 240, 200, 0.55), transparent 100%),
+          radial-gradient(1px 1px at 66% 92%, rgba(255, 255, 255, 0.4), transparent 100%);
+        animation: twinkle 6s ease-in-out infinite alternate;
+      }
+      @keyframes twinkle {
+        from {
+          opacity: 0.5;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      #app {
+        /* 居中交给 Phaser 的 CENTER_BOTH（margin 方式），这里不能再 flex 居中，否则双重偏移 */
+        position: relative;
+        height: 100%;
+        /* 刘海屏 / 圆角屏安全区 */
+        padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
+          env(safe-area-inset-left);
+        box-sizing: border-box;
+      }
+      #app canvas {
+        touch-action: none;
+      }
+      /* 桌面宽屏：给画布加霓虹描边与辉光，弱化两侧留边 */
+      @media (min-width: 760px) and (min-aspect-ratio: 4/5) {
+        #app canvas {
+          border-radius: 14px;
+          box-shadow:
+            0 0 0 1px rgba(125, 249, 255, 0.22),
+            0 0 36px rgba(125, 249, 255, 0.1),
+            0 24px 70px rgba(0, 0, 0, 0.65);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
